@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Sakshi 🌹</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Marcellus&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rose-deep:#7a1f3d; --rose:#b23a5c; --blush:#f7d9e3; --cream:#fff6f2;
+    --gold:#c9a24b; --plum:#3a1730; --ink:#4a2438;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%; overflow:hidden;}
+  body{
+    font-family:'Poppins', sans-serif; color:var(--ink);
+    background:radial-gradient(ellipse at 30% 10%, #2a0f22 0%, #1a0815 55%, #120611 100%);
+  }
+  #scroller{
+    height:100vh; width:100vw; overflow-y:scroll; scroll-snap-type:y mandatory;
+    scroll-behavior:smooth;
+  }
+  section{
+    height:100vh; width:100vw; scroll-snap-align:start; position:relative;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:32px 24px; text-align:center; overflow:hidden;
+  }
+  section .bg{
+    position:absolute; inset:0; z-index:0;
+    background:radial-gradient(ellipse at 50% 20%, #3a1730 0%, #1a0815 70%);
+  }
+  .stars{position:absolute; inset:0; z-index:0;}
+  .star{position:absolute; background:#fff; border-radius:50%; opacity:0.5; animation:twinkle 3s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:0.2;}50%{opacity:0.8;}}
+
+  .content{position:relative; z-index:2; max-width:420px;}
+  h1{font-family:'Marcellus',serif; font-weight:400; color:#fff; font-size:clamp(1.8rem,7vw,2.6rem); line-height:1.25;}
+  .sub{font-family:'Cormorant Garamond',serif; font-style:italic; color:#f0c9d6; font-size:1.15rem; margin-top:10px;}
+  .dim{color:#c9a3b3; font-size:0.85rem; margin-top:8px; letter-spacing:0.5px;}
+
+  .next-hint{
+    position:absolute; bottom:30px; left:50%; transform:translateX(-50%); z-index:3;
+    color:#e6bccb; font-size:0.75rem; font-family:'Poppins'; letter-spacing:1px;
+    display:flex; flex-direction:column; align-items:center; gap:4px; animation:bobArrow 1.8s ease-in-out infinite; cursor:pointer;
+  }
+  @keyframes bobArrow{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,6px);}}
+  .next-hint svg{width:18px;height:18px;}
+
+  /* ===== SECTION 1: pull the heart ===== */
+  #s1 .heart-rig{position:relative; width:200px; height:260px; margin:26px auto 6px;}
+  #s1 svg.string{position:absolute; top:0; left:50%; transform:translateX(-50%); overflow:visible;}
+  #heartEl{
+    position:absolute; left:50%; top:40px; transform:translate(-50%,0);
+    font-size:56px; cursor:grab; touch-action:none; user-select:none;
+    filter:drop-shadow(0 6px 14px rgba(178,58,92,0.5));
+  }
+  #heartEl:active{cursor:grabbing;}
+  #s1 .pull-label{margin-top:18px; color:#e6bccb; font-size:0.8rem; letter-spacing:2px; font-family:'Poppins';}
+
+  /* ===== SECTION 2: reveal ===== */
+  #s2 h1{font-size:clamp(2.4rem,10vw,4rem); background:linear-gradient(90deg,#ffd6e8,#c9a24b); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .countdown-wrap{margin-top:26px; display:flex; flex-direction:column; align-items:center; gap:6px;}
+  .countdown-num{
+    font-family:'Marcellus',serif; font-size:2.2rem; color:var(--gold);
+    width:64px; height:64px; border:1.5px solid rgba(201,162,75,0.5); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .countdown-label{color:#c9a3b3; font-size:0.75rem; letter-spacing:1px;}
+
+  /* ===== SECTION 3: balloons ===== */
+  .balloon-wrap{position:relative; width:100%; max-width:380px; height:340px; margin-top:14px;}
+  .balloon{
+    position:absolute; width:70px; height:86px; border-radius:50% 50% 50% 50% / 58% 58% 42% 42%;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    box-shadow:inset -8px -8px 16px rgba(0,0,0,0.15);
+    animation:floatB 3.4s ease-in-out infinite; transition:transform .25s, opacity .25s;
+  }
+  .balloon::after{content:'';position:absolute; bottom:-14px; left:50%; width:1px; height:18px; background:rgba(255,255,255,0.4); transform:translateX(-50%);}
+  .balloon.popped{transform:scale(0); opacity:0; pointer-events:none;}
+  @keyframes floatB{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+  .reason-card{
+    margin-top:20px; min-height:70px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,214,232,0.3);
+    border-radius:14px; padding:16px 20px; font-family:'Cormorant Garamond',serif; font-style:italic;
+    color:#ffe3ee; font-size:1.15rem; opacity:0; transform:translateY(10px); transition:all .4s ease; max-width:340px;
+  }
+  .reason-card.show{opacity:1; transform:translateY(0);}
+  .balloon-progress{color:#c9a3b3; font-size:0.78rem; margin-top:10px;}
+
+  /* ===== SECTION 4: memory lane ===== */
+  .polaroid-stage{position:relative; width:220px; height:260px; margin-top:10px;}
+  .polaroid{
+    position:absolute; inset:0; background:#fdf7f4; border-radius:6px; padding:10px 10px 34px;
+    box-shadow:0 14px 30px rgba(0,0,0,0.4); transition:transform .45s cubic-bezier(.3,1,.4,1), opacity .45s;
+  }
+  .polaroid .photo{width:100%; height:100%; border-radius:2px; display:flex; align-items:center; justify-content:center; font-size:2.4rem; color:#fff;}
+  .polaroid .cap{position:absolute; bottom:8px; left:0; right:0; text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; color:#4a2438; font-size:0.85rem;}
+  .keep-going{
+    margin-top:26px; background:linear-gradient(90deg,var(--rose),var(--gold)); color:#fff; border:none;
+    padding:12px 30px; border-radius:26px; font-family:'Poppins'; font-size:0.9rem; cursor:pointer;
+    box-shadow:0 8px 18px rgba(178,58,92,0.4);
+  }
+  .dots{display:flex; gap:6px; margin-top:14px;}
+  .dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.25);}
+  .dots span.active{background:var(--gold);}
+
+  /* ===== SECTION 5: envelope ===== */
+  .envelope{position:relative; width:220px; height:150px; cursor:pointer; margin:20px auto 0;}
+  .envelope .body{position:absolute; inset:0; background:linear-gradient(180deg,#f3d9a6,#d9a24b); border-radius:8px;}
+  .envelope .flap{
+    position:absolute; top:0; left:0; width:100%; height:78px;
+    background:linear-gradient(160deg,#c9a24b,#a77c2e);
+    clip-path:polygon(0 0,100% 0,50% 85%); transform-origin:top;
+    transition:transform .6s cubic-bezier(.3,1.2,.4,1); border-radius:8px 8px 0 0; z-index:3;
+  }
+  .envelope.open .flap{transform:rotateX(150deg);}
+  .envelope .paper{
+    position:absolute; left:12%; bottom:6px; width:76%; height:0; background:#fffaf2; border-radius:4px;
+    z-index:2; transition:height .5s ease .15s, transform .5s ease .15s; overflow:hidden; box-shadow:0 6px 16px rgba(0,0,0,0.2);
+  }
+  .envelope.open .paper{height:118px; transform:translateY(-36px);}
+  .letter-note{
+    margin-top:22px; text-align:left; background:#fffaf2; color:#4a2438; border-radius:10px; padding:20px 22px;
+    max-width:360px; font-family:'Cormorant Garamond',serif; font-size:1.08rem; line-height:1.6; white-space:pre-line;
+    display:none; box-shadow:0 14px 30px rgba(0,0,0,0.35);
+  }
+  .letter-note.show{display:block;}
+
+  /* ===== SECTION 6: finale ===== */
+  #s6 .cake{font-size:4.4rem; animation:bounce 1.2s ease infinite;}
+  @keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+  #s6 h1{font-size:clamp(2rem,8vw,2.8rem);}
+  .replay{
+    margin-top:22px; background:transparent; border:1px solid #e6bccb; color:#e6bccb;
+    padding:10px 24px; border-radius:22px; font-family:'Poppins'; font-size:0.85rem; cursor:pointer;
+  }
+  #fireworks-canvas{position:absolute; inset:0; z-index:1;}
+
+  .heart-drift{position:fixed; pointer-events:none; z-index:5; font-size:14px; opacity:0.7;}
+</style>
+</head>
+<body>
+
+<div id="scroller">
+
+  <!-- SECTION 1 — pull the heart -->
+  <section id="s1">
+    <div class="stars" id="stars1"></div>
+    <div class="content">
+      <p class="dim">a little something, for you</p>
+      <div class="heart-rig">
+        <svg class="string" id="stringSvg" width="200" height="260"><line id="stringLine" x1="100" y1="0" x2="100" y2="40" stroke="#e6bccb" stroke-width="1.5"/></svg>
+        <div id="heartEl">💗</div>
+      </div>
+      <p class="pull-label">PULL &amp; RELEASE</p>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — big reveal -->
+  <section id="s2">
+    <div class="stars" id="stars2"></div>
+    <div class="content">
+      <h1>Happy<br>Birthday</h1>
+      <p class="sub">to someone worth celebrating</p>
+      <div class="countdown-wrap">
+        <div class="countdown-num" id="countdownNum">10</div>
+        <p class="countdown-label">next surprise in...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — balloons -->
+  <section id="s3">
+    <div class="stars" id="stars3"></div>
+    <div class="content">
+      <p class="dim">pop the balloons</p>
+      <p class="sub" style="font-size:0.95rem;">4 balloons. each one holds a reason you're loved.</p>
+      <div class="balloon-wrap" id="balloonWrap"></div>
+      <div class="reason-card" id="reasonCard"></div>
+      <p class="balloon-progress" id="balloonProgress">0 / 4 popped</p>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — memory lane -->
+  <section id="s4">
+    <div class="stars" id="stars4"></div>
+    <div class="content">
+      <p class="dim">a walk down memory lane</p>
+      <div class="polaroid-stage" id="polaroidStage"></div>
+      <div class="dots" id="polaroidDots"></div>
+      <button class="keep-going" onclick="nextPolaroid()">Keep going</button>
+    </div>
+  </section>
+
+  <!-- SECTION 5 — envelope letter -->
+  <section id="s5">
+    <div class="stars" id="stars5"></div>
+    <div class="content">
+      <p class="dim">one more thing</p>
+      <div class="envelope" id="envelope" onclick="openEnvelope()">
+        <div class="body"></div>
+        <div class="paper"></div>
+        <div class="flap"></div>
+      </div>
+      <div class="letter-note" id="letterNote">Dear Sakshi,
+
+Happy Birthday, love. I don't think I say this enough, so let today be the day I do: you make ordinary life feel like something worth looking forward to.
+
+I love the way you laugh at your own jokes before you finish telling them, and the way being near you just feels like home.
+
+I hope this year gives you everything you deserve.
+
+I love you, today and always.
+— Rahul</div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 — finale -->
+  <section id="s6">
+    <canvas id="fireworks-canvas"></canvas>
+    <div class="content" style="z-index:2;">
+      <span class="cake">🎂</span>
+      <h1>Happy Birthday,<br>Sakshi!</h1>
+      <p class="sub">here's to another year of us. I love you so much.</p>
+      <button class="replay" onclick="goTo(0)">watch it again</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ---------- starfield ---------- */
+document.querySelectorAll('.stars').forEach(container=>{
+  for(let i=0;i<30;i++){
+    const s = document.createElement('span');
+    s.className='star';
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*100+'%';
+    const size = 1+Math.random()*2;
+    s.style.width = size+'px'; s.style.height = size+'px';
+    s.style.animationDelay = (Math.random()*3)+'s';
+    container.appendChild(s);
+  }
+});
+
+/* ---------- scroll navigation ---------- */
+const scroller = document.getElementById('scroller');
+const sections = document.querySelectorAll('section');
+function goTo(i){ sections[i].scrollIntoView({behavior:'smooth'}); }
+
+/* ---------- SECTION 1: pull & release heart ---------- */
+const heart = document.getElementById('heartEl');
+const rig = document.querySelector('.heart-rig');
+const stringLine = document.getElementById('stringLine');
+let dragging=false, startY=0, curY=0, released=false;
+function pos(e){ return e.touches? e.touches[0]: e; }
+heart.addEventListener('pointerdown', (e)=>{
+  if(released) return;
+  dragging=true; startY = e.clientY; heart.setPointerCapture(e.pointerId);
+});
+heart.addEventListener('pointermove', (e)=>{
+  if(!dragging) return;
+  curY = Math.max(0, e.clientY - startY);
+  curY = Math.min(curY, 90);
+  heart.style.transform = `translate(-50%, ${curY}px) scale(${1+curY/400})`;
+  stringLine.setAttribute('y2', 40+curY);
+});
+function release(e){
+  if(!dragging) return;
+  dragging=false;
+  if(curY > 55 && !released){
+    released = true;
+    heart.style.transition='transform .5s cubic-bezier(.3,1.6,.4,1)';
+    heart.style.transform='translate(-50%,0) scale(1.3)';
+    stringLine.style.transition='all .3s ease';
+    stringLine.setAttribute('y2',40);
+    setTimeout(()=> goTo(1), 550);
+  } else {
+    heart.style.transition='transform .3s ease';
+    heart.style.transform='translate(-50%,0) scale(1)';
+    stringLine.setAttribute('y2',40);
+    curY = 0;
+  }
+}
+heart.addEventListener('pointerup', release);
+heart.addEventListener('pointercancel', release);
+
+/* ---------- SECTION 2: 10s auto countdown ---------- */
+let countdownStarted = false;
+const io2 = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.target.id==='s2' && en.isIntersecting && !countdownStarted){
+      countdownStarted = true;
+      runCountdown();
+    }
+  });
+}, {threshold:0.6});
+io2.observe(document.getElementById('s2'));
+
+function runCountdown(){
+  let t = 10;
+  const numEl = document.getElementById('countdownNum');
+  numEl.textContent = t;
+  const tick = setInterval(()=>{
+    t--;
+    numEl.textContent = t;
+    if(t <= 0){
+      clearInterval(tick);
+      goTo(2); // automatically move to the balloons section
+    }
+  }, 1000);
+}
+
+/* ---------- SECTION 3: balloons ---------- */
+const reasons = [
+  "Your laugh is my favorite sound.",
+  "You believed in me when I didn't.",
+  "You make ordinary days feel special.",
+  "The world is kinder with you in it."
+];
+const balloonColors = ['#ff9db3','#ffd48a','#f6a6c1','#c9a24b'];
+const wrap = document.getElementById('balloonWrap');
+let popped3 = 0;
+const positions = [
+  {left:'10%', top:'10%'}, {left:'55%', top:'0%'},
+  {left:'0%', top:'55%'}, {left:'50%', top:'55%'}
+];
+reasons.forEach((r,i)=>{
+  const b = document.createElement('div');
+  b.className='balloon';
+  b.style.left = positions[i].left; b.style.top = positions[i].top;
+  b.style.background = `radial-gradient(circle at 35% 30%, #fff2, ${balloonColors[i]})`;
+  b.style.animationDelay = (Math.random()*1.5)+'s';
+  b.onclick = ()=> popBalloon(b, r);
+  wrap.appendChild(b);
+});
+function popBalloon(el, reason){
+  if(el.classList.contains('popped')) return;
+  el.classList.add('popped');
+  popped3++;
+  document.getElementById('balloonProgress').textContent = popped3+' / 4 popped';
+  const card = document.getElementById('reasonCard');
+  card.classList.remove('show');
+  setTimeout(()=>{ card.textContent = reason; card.classList.add('show'); }, 150);
+
+  if(popped3 === reasons.length){
+    // all balloons popped — automatically move on after she reads the last one
+    setTimeout(()=> goTo(3), 2600);
+  }
+}
+
+/* ---------- SECTION 4: polaroid memory lane ---------- */
+const memories = [
+  {emoji:'📷', cap:'our first trip', grad:'linear-gradient(135deg,#b23a5c,#c9a24b)'},
+  {emoji:'📷', cap:'that rainy evening', grad:'linear-gradient(135deg,#7a1f3d,#b23a5c)'},
+  {emoji:'📷', cap:'just us', grad:'linear-gradient(135deg,#d98aa3,#c9a24b)'},
+  {emoji:'📷', cap:'your smile', grad:'linear-gradient(135deg,#b23a5c,#d9a24b)'},
+];
+const stage = document.getElementById('polaroidStage');
+const dotsWrap = document.getElementById('polaroidDots');
+let memIndex = 0;
+memories.forEach((m,i)=>{
+  const p = document.createElement('div');
+  p.className='polaroid';
+  p.style.zIndex = memories.length - i;
+  p.style.transform = i===0 ? 'translateY(0) rotate(-1deg)' : `translateY(${8*i}px) scale(${1-i*0.04}) rotate(${i%2? '2deg':'-2deg'})`;
+  p.style.opacity = i<3 ? 1 : 0;
+  p.innerHTML = `<div class="photo" style="background:${m.grad};">${m.emoji}</div><div class="cap">${m.cap}</div>`;
+  stage.appendChild(p);
+  const d = document.createElement('span');
+  if(i===0) d.className='active';
+  dotsWrap.appendChild(d);
+});
+let polaroidAdvances = 0;
+let polaroidTimer = null;
+let polaroidDone = false;
+
+function nextPolaroid(auto){
+  if(polaroidDone) return;
+  const cards = stage.querySelectorAll('.polaroid');
+  const front = cards[0];
+  front.style.transition='transform .45s ease, opacity .45s ease';
+  front.style.transform='translateY(-40px) rotate(-8deg)';
+  front.style.opacity='0';
+  setTimeout(()=>{
+    stage.appendChild(front);
+    front.style.transform = 'translateY(24px) scale(0.9) rotate(3deg)';
+    front.style.opacity='0';
+    const all = stage.querySelectorAll('.polaroid');
+    all.forEach((c,i)=>{
+      c.style.zIndex = all.length-i;
+      c.style.transition='transform .45s ease, opacity .45s ease';
+      c.style.transform = i===0 ? 'translateY(0) rotate(-1deg)' : `translateY(${8*i}px) scale(${1-i*0.04}) rotate(${i%2? '2deg':'-2deg'})`;
+      c.style.opacity = i<3 ? 1 : 0;
+    });
+  }, 220);
+  memIndex = (memIndex+1) % memories.length;
+  const dots = dotsWrap.querySelectorAll('span');
+  dots.forEach((d,i)=> d.classList.toggle('active', i===memIndex));
+
+  polaroidAdvances++;
+  if(polaroidAdvances >= memories.length){
+    polaroidDone = true;
+    clearInterval(polaroidTimer);
+    setTimeout(()=> goTo(4), 900); // seen every memory — move on automatically
+  }
+}
+
+/* auto-cycle the memories on their own, only while this section is in view */
+const io4 = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.target.id==='s4'){
+      if(en.isIntersecting && !polaroidDone && !polaroidTimer){
+        polaroidTimer = setInterval(()=> nextPolaroid(true), 2600);
+      } else if(!en.isIntersecting && polaroidTimer){
+        clearInterval(polaroidTimer);
+        polaroidTimer = null;
+      }
+    }
+  });
+}, {threshold:0.6});
+io4.observe(document.getElementById('s4'));
+
+/* ---------- SECTION 5: envelope ---------- */
+function openEnvelope(){
+  const env = document.getElementById('envelope');
+  if(env.classList.contains('open')) return;
+  env.classList.add('open');
+  setTimeout(()=> document.getElementById('letterNote').classList.add('show'), 400);
+  // give her time to read the letter, then move on to the finale automatically
+  setTimeout(()=> goTo(5), 7500);
+}
+
+/* ---------- SECTION 6: fireworks ---------- */
+let fwStarted = false;
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.target.id==='s6' && en.isIntersecting && !fwStarted){
+      fwStarted = true;
+      startFireworks();
+    }
+  });
+}, {threshold:0.6});
+io.observe(document.getElementById('s6'));
+
+function startFireworks(){
+  const canvas = document.getElementById('fireworks-canvas');
+  const ctx = canvas.getContext('2d');
+  function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  let particles = [];
+  const colors=['#ff6f91','#ff9671','#ffc75f','#f9f871','#d65db1'];
+  function spawnBurst(){
+    const x = Math.random()*canvas.width;
+    const y = Math.random()*canvas.height*0.5;
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    for(let i=0;i<36;i++){
+      const angle=(Math.PI*2*i)/36, speed=2+Math.random()*3;
+      particles.push({x,y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,alpha:1,color});
+    }
+  }
+  setInterval(spawnBurst, 700);
+  spawnBurst();
+  function loop(){
+    ctx.fillStyle='rgba(26,8,21,0.18)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.03; p.alpha-=0.011;
+      ctx.globalAlpha=Math.max(p.alpha,0);
+      ctx.fillStyle=p.color;
+      ctx.beginPath(); ctx.arc(p.x,p.y,2.4,0,Math.PI*2); ctx.fill();
+    });
+    particles = particles.filter(p=>p.alpha>0);
+    ctx.globalAlpha=1;
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+</script>
+</body>
+</html>
